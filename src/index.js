@@ -4,13 +4,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./components/AuthContext";
 import "./index.scss";
 
+const baseUrl = process.env.PUBLIC_URL;
+
 //const Switcherlayout = React.lazy(() => import("./components/switcherlayout"));
-//App
 const App = React.lazy(() => import("./components/app"));
 
 //Dashboard
 const Dashboard = React.lazy(() => import("./Pages/Dashboard/Dashboard/Dashboard"));
-
+const WithdrawGroupListing = React.lazy(() => import("./Pages/WithdrawGroups/list"));
+const WithdrawGroupForm = React.lazy(() => import("./Pages/WithdrawGroups/form"));
 
 //custom Pages
 const Login = React.lazy(() => import("./Pages/Login/Login"));
@@ -33,47 +35,39 @@ const Loaderimg = () => {
     </div>
   );
 };
+
 const Root = () => {
   useEffect(() => {
     //Switcherdata.localStorageBackUp();
     //Switcherdata.HorizontalHoverMenu();
   }, []);
+
   return (
     <Fragment>
       <BrowserRouter>
         <React.Suspense fallback={Loaderimg()}>
           <AuthProvider>
             <Routes>
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoutes />
-                }
-              >
-                <Route path={`${process.env.PUBLIC_URL}/`} element={<App />}>
-                  <Route
-                    path="/"
-                    element={
-                      <ProtectedRoutes />
-                    }
-                  >
-                    <Route path={`${process.env.PUBLIC_URL}/dashboard`} element={<Dashboard />} />
+              <Route path="/" element={<ProtectedRoutes />}>
+                <Route path={`${baseUrl}/`} element={<App />}>
+                  <Route path="/" element={<ProtectedRoutes />}>
+                    <Route path={`${baseUrl}/dashboard`} element={<Dashboard />} />
+
+                    {/* Withdraw Groups */}
+                    <Route path={`${baseUrl}/withdraw-groups`} element={<WithdrawGroupListing />} />
+                    <Route path={`${baseUrl}/withdraw-groups/add`} element={<WithdrawGroupForm />} />
+                    <Route path={`${baseUrl}/withdraw-groups/edit`} element={<WithdrawGroupForm />} />
                   </Route>
-
-                  {/* <Route path="/" element={<ProtectedRoutes />}>
-                    <Route path={`${process.env.PUBLIC_URL}/theme-setting`} element={<ThemeSettingForm />} />
-                  </Route> */}
-
                 </Route>
               </Route>
 
               <Route path="/" element={<PublicRoutes />}>
-                <Route path={`${process.env.PUBLIC_URL}/login`} element={<Login />} />
-                <Route path={`${process.env.PUBLIC_URL}/reset-password`} element={<ResetPassword />} />
-                <Route path={`${process.env.PUBLIC_URL}/errorpage401`} element={<Errorpage401 />} />
-                <Route path={`${process.env.PUBLIC_URL}/errorpage403`} element={<Errorpage403 />} />
-                <Route path={`${process.env.PUBLIC_URL}/errorpage500`} element={<Errorpage500 />} />
-                <Route path={`${process.env.PUBLIC_URL}/errorpage503`} element={<Errorpage503 />} />
+                <Route path={`${baseUrl}/login`} element={<Login />} />
+                <Route path={`${baseUrl}/reset-password`} element={<ResetPassword />} />
+                <Route path={`${baseUrl}/errorpage401`} element={<Errorpage401 />} />
+                <Route path={`${baseUrl}/errorpage403`} element={<Errorpage403 />} />
+                <Route path={`${baseUrl}/errorpage500`} element={<Errorpage500 />} />
+                <Route path={`${baseUrl}/errorpage503`} element={<Errorpage503 />} />
               </Route>
               <Route path="*" element={<Errorpage400 />} />
             </Routes>

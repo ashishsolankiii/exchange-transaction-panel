@@ -15,3 +15,5 @@ export const MASTER = userRoles.MASTER;
 export const AGENT = userRoles.AGENT;
 
 export const userRolesArray = Object.values(userRoles);
+
+export const userInfo = JSON.parse(localStorage.getItem("user_info") || "{}");
