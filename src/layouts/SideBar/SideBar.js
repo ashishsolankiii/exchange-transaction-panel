@@ -37,6 +37,18 @@ const Sidebar = () => {
           },
         ],
       },
+      {
+        menutitle: "TRANSFER TYPES",
+        Items: [
+          {
+            path: `${process.env.PUBLIC_URL}/transfer-type-list`,
+            icon: "dollar-sign",
+            type: "link",
+            active: true,
+            title: "Transfer types",
+          },
+        ],
+      },
     ];
 
     return menuItems;
@@ -231,10 +243,10 @@ const Sidebar = () => {
                           style={
                             menuItem.active
                               ? {
-                                  opacity: 1,
-                                  transition: "opacity 500ms ease-in",
-                                  display: "block",
-                                }
+                                opacity: 1,
+                                transition: "opacity 500ms ease-in",
+                                display: "block",
+                              }
                               : { display: "none" }
                           }
                         >
