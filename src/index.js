@@ -17,6 +17,7 @@ const WithdrawGroupForm = React.lazy(() => import("./Pages/WithdrawGroups/form")
 // Transfer Types
 const TransferTypeList = React.lazy(() => import("./Pages/TransferType/TransferTypeList/TransferTypeList"));
 const TransferTypeForm = React.lazy(() => import("./Pages/TransferType/TransferTypeForm/TransferTypeForm"));
+const TransferRequestsListing = React.lazy(() => import("./Pages/TransferRequests/list"));
 
 //custom Pages
 const Login = React.lazy(() => import("./Pages/Login/Login"));
@@ -65,6 +66,9 @@ const Root = () => {
                     {/* Withdraw Groups */}
                     <Route path={`${baseUrl}/transfer-type-list`} element={<TransferTypeList />} />
                     <Route path={`${baseUrl}/transfer-type-form`} element={<TransferTypeForm />} />
+
+                    {/* Transfer Requests */}
+                    <Route path={`${baseUrl}/transfer-requests`} element={<TransferRequestsListing />} />
                   </Route>
                 </Route>
               </Route>

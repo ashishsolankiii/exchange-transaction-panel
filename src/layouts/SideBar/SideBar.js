@@ -30,7 +30,7 @@ const Sidebar = () => {
         Items: [
           {
             path: `${process.env.PUBLIC_URL}/withdraw-groups`,
-            icon: "dollar-sign",
+            icon: "server",
             type: "link",
             active: true,
             title: "Withdraw Groups",
@@ -46,6 +46,18 @@ const Sidebar = () => {
             type: "link",
             active: true,
             title: "Transfer types",
+          },
+        ],
+      },
+      {
+        menutitle: "TRANSFER REQUESTS",
+        Items: [
+          {
+            path: `${process.env.PUBLIC_URL}/transfer-requests`,
+            icon: "inbox",
+            type: "link",
+            active: true,
+            title: "Transfer Requests",
           },
         ],
       },
