@@ -86,7 +86,10 @@ export default function TransferTypeList() {
       name: "TYPE",
       selector: (row) => [row.type],
       sortable: true,
-      sortField: "name",
+      sortField: "type",
+      cell: (row) => (
+        <span className="text-uppercase">{row.type}</span>
+      )
     },
     {
       name: "NAME",
