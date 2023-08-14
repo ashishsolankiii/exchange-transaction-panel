@@ -12,6 +12,7 @@ import { showAlert } from "../../../utils/alertUtils";
 import { downloadCSV } from "../../../utils/csvUtils";
 import { Notify } from "../../../utils/notify";
 import { changeStatus, deleteTransferType, getAllTransferType } from "../transferTypeService";
+import TransferType from "../../TransferRequests/list/ui/transfer-type";
 
 export default function TransferTypeList() {
   const Export = ({ onExport }) => (
@@ -105,30 +106,14 @@ export default function TransferTypeList() {
       sortable: true,
       sortField: "maxAmount",
     },
-
     {
-      name: "STATUS",
-      selector: (row) => [row.betCategory],
-      sortable: false,
-      cell: (row) => (
-        <div className="material-switch mt-4 d-flex align-items-center" key={row._id}>
-          <input
-            id={`highlightSwitch_${row._id}`}
-            name={`notes[${row._id}].highlight`}
-            onChange={() => toggleHighlight(row._id, competitionStatus[row._id]?.isActive)}
-            checked={competitionStatus[row._id]?.isActive || false}
-            type="checkbox"
-          />
-          <label htmlFor={`highlightSwitch_${row._id}`} className="label-primary"></label>
-          {competitionStatus[row._id]?.loading ? (
-            <div className="pb-2 ps-4">
-              <CSpinner size="sm" />
-            </div>
-          ) : null}
-        </div>
-      ),
+      name: "DETAIL",
+      selector: (row) => [row],
+      sortable: true,
+      sortField: "transferTypeName",
+      cell: (row) => <TransferType data={row} />,
+      width: "300px",
     },
-
     {
       name: "ACTION",
       cell: (row) => (
