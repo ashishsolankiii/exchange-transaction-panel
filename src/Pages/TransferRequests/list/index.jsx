@@ -99,8 +99,8 @@ export default function TransferRequestsListing() {
               <div className="table-responsive export-table">
                 <DataTable
                   columns={columns}
-                  data={data}
                   // actions={actionsMemo}
+                  data={data}
                   // contextActions={contextActions}
                   // onSelectedRowsChange={handleRowSelected}
                   // clearSelectedRows={toggleCleared}
