@@ -25,7 +25,7 @@ function BankTransfer({ data }) {
 
       <tr>
         <th>Account type</th>
-        <td>{data.accountType || "-"}</td>
+        <td className="text-uppercase">{data.accountType || "-"}</td>
       </tr>
 
       <tr>
