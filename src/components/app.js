@@ -1,11 +1,12 @@
 import React, { Fragment } from "react";
-import Header from "../layouts/Header/Header";
-import Sidebar from "../layouts/SideBar/SideBar";
-import Footer from "../layouts/Footer/Footer";
-import Switcher from "../layouts/Switcher/Switcher";
-import RightSidebar from "../layouts/RightSidebar/RightSidebar";
-import * as Switcherdata from "../data/Switcher/Switcherdata";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import * as Switcherdata from "../data/Switcher/Switcherdata";
+import Footer from "../layouts/Footer/Footer";
+import Header from "../layouts/Header/Header";
+import RightSidebar from "../layouts/RightSidebar/RightSidebar";
+import Sidebar from "../layouts/SideBar/SideBar";
+import Switcher from "../layouts/Switcher/Switcher";
 import TabToTop from "../layouts/TabToTop/TabToTop";
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
                     Switcherdata.Horizontalmenudefultclose();
                   }}
                 >
+                  <ToastContainer />
                   <Outlet />
                 </div>
               </div>
