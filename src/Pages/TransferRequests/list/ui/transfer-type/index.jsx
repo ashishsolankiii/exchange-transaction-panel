@@ -3,6 +3,7 @@ import BankTransfer from "./BankTransfer";
 import CashTransfer from "./CashTransfer";
 import DepositLinkTransfer from "./DepositLinkTransfer";
 import PlatformTransfer from "./PlatformTransfer";
+import "./transferType.css";
 
 const transferTypes = {
   CASH: "cash",
@@ -19,7 +20,11 @@ function TransferType({ data }) {
     [transferTypes.LINK]: <DepositLinkTransfer data={data} />,
   };
 
-  return <div>{renderTransfer[data.type]}</div>;
+  return (
+    <table className="mb-0 table table-sm table-borderless">
+      <tbody>{renderTransfer[data.type]}</tbody>
+    </table>
+  );
 }
 
 export default TransferType;

@@ -3,15 +3,15 @@ import React from "react";
 function CashTransfer({ data }) {
   return (
     <>
-      <div className="py-1">
-        <span className="fw-bold">Platform: </span>
-        <span className="text-uppercase">{data.type}</span>
-      </div>
+      <tr>
+        <th style={{ width: "45%", whiteSpace: "nowrap" }}>Platform</th>
+        <td className="text-uppercase">{data.type}</td>
+      </tr>
 
-      <div className="py-1">
-        <span className="fw-bold">Contact: </span>
-        <span>{data.mobileNumber || ""}</span>
-      </div>
+      <tr>
+        <th>Contact</th>
+        <td>{data.mobileNumber}</td>
+      </tr>
     </>
   );
 }

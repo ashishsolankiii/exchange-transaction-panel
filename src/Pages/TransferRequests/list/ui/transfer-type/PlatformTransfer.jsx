@@ -3,20 +3,20 @@ import React from "react";
 function PlatformTransfer({ data }) {
   return (
     <>
-      <div className="py-1">
-        <span className="fw-bold">Platform: </span>
-        <span className="text-uppercase">{data.platformName}</span>
-      </div>
+      <tr>
+        <th style={{ width: "45%", whiteSpace: "nowrap" }}>Platform</th>
+        <td className="text-uppercase">{data.platformName}</td>
+      </tr>
 
-      <div className="py-1">
-        <span className="fw-bold">Name: </span>
-        <span>{data.platformDisplayName}</span>
-      </div>
+      <tr>
+        <th>Name</th>
+        <td>{data.platformDisplayName}</td>
+      </tr>
 
-      <div className="py-1">
-        <span className="fw-bold">Address: </span>
-        <span>{data.platformDisplayName}</span>
-      </div>
+      <tr>
+        <th>Address</th>
+        <td>{data.platformAddress}</td>
+      </tr>
     </>
   );
 }

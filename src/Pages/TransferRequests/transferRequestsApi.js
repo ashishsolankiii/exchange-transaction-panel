@@ -14,3 +14,16 @@ export const getTransferRequests = async (params) => {
     Notify.error(e.message);
   }
 };
+
+export const updateTransferRequest = async (params, message = "Transfer request updated successfully.") => {
+  try {
+    const result = await postData(`${apiEndpoint}/updateTransferRequest`, params);
+    if (result.success) {
+      Notify.success(message);
+      return result.data;
+    }
+    throw new Error(result.message || "Error updating withdraw group.");
+  } catch (e) {
+    Notify.error(e.message);
+  }
+};

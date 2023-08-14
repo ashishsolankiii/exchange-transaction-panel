@@ -5,6 +5,7 @@ import "react-data-table-component-extensions/dist/index.css";
 import SearchInput from "../../../components/Common/FormComponents/SearchInput";
 import { getTransferRequests } from "../transferRequestsApi";
 import PageHeader from "./ui/page-header";
+import TransferRequestStatus from "./ui/transfer-request-status";
 import TransferType from "./ui/transfer-type";
 
 export default function TransferRequestsListing() {
@@ -26,23 +27,23 @@ export default function TransferRequestsListing() {
     },
     {
       name: "USER",
-      selector: (row) => [row.user.username],
+      selector: (row) => [row.requestedUserName],
       sortable: true,
-      sortField: "username",
+      sortField: "requestedUserName",
     },
     {
       name: "TRANSFER TYPE",
-      selector: (row) => [row.transferType.type],
+      selector: (row) => [row.transferTypeName],
       sortable: true,
-      sortField: "transferType",
+      sortField: "transferTypeName",
       cell: (row) => <TransferType data={row.transferType} />,
       width: "300px",
     },
     {
       name: "WITHDRAW GROUP",
-      selector: (row) => [row.withdrawGroup.type],
+      selector: (row) => [row.withdrawGroupName],
       sortable: true,
-      sortField: "withdrawGroup",
+      sortField: "withdrawGroupName",
       cell: (row) => <div className="text-uppercase fw-semibold">{row.withdrawGroup.type}</div>,
     },
     {
@@ -56,10 +57,11 @@ export default function TransferRequestsListing() {
       selector: (row) => [row.status],
       sortable: true,
       sortField: "status",
+      cell: (row) => <TransferRequestStatus row={row} />,
     },
     {
       name: "MESSAGE",
-      selector: (row) => [row.message],
+      selector: (row) => [row.message || "-"],
       sortable: true,
       sortField: "message",
     },

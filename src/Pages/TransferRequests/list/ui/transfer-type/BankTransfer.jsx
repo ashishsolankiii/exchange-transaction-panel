@@ -3,35 +3,35 @@ import React from "react";
 function BankTransfer({ data }) {
   return (
     <>
-      <div className="py-1">
-        <span className="fw-bold">Platform: </span>
-        <span className="text-uppercase">{data.type}</span>
-      </div>
+      <tr>
+        <th style={{ width: "45%", whiteSpace: "nowrap" }}>Platform</th>
+        <td className="text-uppercase">{data.type}</td>
+      </tr>
 
-      <div className="py-1">
-        <span className="fw-bold">Bank Name: </span>
-        <span>{data.bankName || ""}</span>
-      </div>
+      <tr>
+        <th>Bank name</th>
+        <td>{data.bankName || "-"}</td>
+      </tr>
 
-      <div className="py-1">
-        <span className="fw-bold">Account Name: </span>
-        <span>{data.accountHolderName || ""}</span>
-      </div>
+      <tr>
+        <th>Account name</th>
+        <td>{data.accountHolderName || "-"}</td>
+      </tr>
 
-      <div className="py-1">
-        <span className="fw-bold">Account Number: </span>
-        <span>{data.accountNumber || ""}</span>
-      </div>
+      <tr>
+        <th>Account no</th>
+        <td>{data.accountNumber || "-"}</td>
+      </tr>
 
-      <div className="py-1">
-        <span className="fw-bold">Account Type: </span>
-        <span>{data.accountType || ""}</span>
-      </div>
+      <tr>
+        <th>Account type</th>
+        <td>{data.accountType || "-"}</td>
+      </tr>
 
-      <div className="py-1">
-        <span className="fw-bold">IFSC Code: </span>
-        <span>{data.ifsc || ""}</span>
-      </div>
+      <tr>
+        <th>IFSC code</th>
+        <td>{data.ifsc || "-"}</td>
+      </tr>
     </>
   );
 }

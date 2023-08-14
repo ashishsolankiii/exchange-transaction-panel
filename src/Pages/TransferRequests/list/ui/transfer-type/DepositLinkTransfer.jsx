@@ -3,15 +3,15 @@ import React from "react";
 function DepositLinkTransfer({ data }) {
   return (
     <>
-      <div className="py-1">
-        <span className="fw-bold">Platform: </span>
-        <span className="text-uppercase">Deposit Link</span>
-      </div>
+      <tr>
+        <th style={{ width: "45%", whiteSpace: "nowrap" }}>Platform</th>
+        <td className="text-uppercase">Deposit {data.type}</td>
+      </tr>
 
-      <div className="py-1">
-        <span className="fw-bold">Link: </span>
-        <span>{data.depositLink}</span>
-      </div>
+      <tr>
+        <th>Link</th>
+        <td>{data.depositLink}</td>
+      </tr>
     </>
   );
 }
