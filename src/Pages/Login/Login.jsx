@@ -27,7 +27,16 @@ export default function Login() {
         <div className="">
           <div className="col col-login mx-auto">
             <div className="text-center">
-              <img src={require("../../assets/images/brand/logo.png")} className="header-brand-img" alt="" />
+              <img
+                src={require("../../assets/images/brand/logo.png")}
+                alt="brand-logo"
+                className="mb-3"
+                style={{
+                  width: "220px",
+                  height: "auto",
+                  objectFit: "contain",
+                }}
+              />
             </div>
           </div>
           <div className="container-login100">
