@@ -64,33 +64,41 @@ export function Header() {
           ></Link>
           <div className="responsive-logo">
             <Link to={`${process.env.PUBLIC_URL}/dashboard/`} className="header-logo">
-              <img
-                src={require("../../assets/images/brand/logo.png")}
-                className="mobile-logo logo-1"
-                alt="logo"
-                width="120px"
-                height="auto"
-              />
-              <img
-                src={require("../../assets/images/brand/logo.png")}
-                className="mobile-logo dark-logo-1"
-                alt="logo"
-                width="120px"
-                height="auto"
-              />
+              <div className="d-block" style={{ width: "175px" }}>
+                <img
+                  src={require("../../assets/images/brand/logo.png")}
+                  className="mobile-logo logo-1"
+                  alt="logo"
+                  width="120px"
+                  height="auto"
+                  style={{ objectFit: "contain" }}
+                />
+                <img
+                  src={require("../../assets/images/brand/logo.png")}
+                  className="mobile-logo dark-logo-1"
+                  alt="logo"
+                  width="120px"
+                  height="auto"
+                  style={{ objectFit: "contain" }}
+                />
+              </div>
             </Link>
           </div>
           <Link className="logo-horizontal " to={`${process.env.PUBLIC_URL}/dashboard/`}>
-            <img
-              src={require("../../assets/images/brand/logo.png")}
-              className="header-brand-img desktop-logo"
-              alt="logo"
-            />
-            <img
-              src={require("../../assets/images/brand/logo.png")}
-              className="header-brand-img light-logo1"
-              alt="logo"
-            />
+            <div className="d-block" style={{ width: "175px" }}>
+              <img
+                src={require("../../assets/images/brand/logo.png")}
+                className="header-brand-img desktop-logo"
+                alt="logo"
+                style={{ objectFit: "contain" }}
+              />
+              <img
+                src={require("../../assets/images/brand/logo.png")}
+                className="header-brand-img light-logo1"
+                alt="logo"
+                style={{ objectFit: "contain" }}
+              />
+            </div>
           </Link>
 
           <div className="d-flex order-lg-2 ms-auto header-right-icons">
