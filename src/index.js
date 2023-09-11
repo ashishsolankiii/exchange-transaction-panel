@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./components/AuthContext";
 import "./index.scss";
+import { handshake } from "./utils/fetch-services-without-token";
 
 const baseUrl = process.env.PUBLIC_URL;
 
@@ -43,6 +44,7 @@ const Loaderimg = () => {
 
 const Root = () => {
   useEffect(() => {
+    handshake();
     //Switcherdata.localStorageBackUp();
     //Switcherdata.HorizontalHoverMenu();
   }, []);
