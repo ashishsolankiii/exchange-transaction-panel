@@ -1,4 +1,5 @@
 import axios from "axios";
+import { decryptResponse, encryptRequest } from "./encryption";
 
 const BaseURL = process.env.REACT_APP_BASE_URL;
 const postData = async (url, body, token = null) => {
@@ -12,17 +13,19 @@ const postData = async (url, body, token = null) => {
       "Content-Type": "application/json; charset=utf-8",
       Accept: "application/json",
     },
-    body: JSON.stringify(body),
+    body: encryptRequest(body),
   });
 
+  const result = await response.json();
+  const data = JSON.parse(decryptResponse(result));
+
   if ([200, 201].includes(response.status)) {
-    const result = await response.json();
-    return result;
+    return data;
   } else if (response.status === 401) {
     localStorage.clear();
     window.location.reload();
   } else if (response.status > 400) {
-    const { message = "Something went wrong." } = await response.json();
+    const { message = "Something went wrong" } = data;
     return { success: false, message };
   }
 
@@ -61,7 +64,7 @@ const getData = async (url) => {
 
 const axiosPostData = async (url, formData) => {
   return axios
-    .post(`${BaseURL}/${url}`, formData, {
+    .post(`${BaseURL}/${url}`, encryptRequest(formData), {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: localStorage.getItem("jws_token"),
