@@ -65,14 +65,14 @@ const getData = async (url) => {
 
 const axiosPostData = async (url, formData) => {
   return axios
-    .post(`${BaseURL}/${url}`, await encryptRequest(formData), {
+    .post(`${BaseURL}/${url}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: localStorage.getItem("jws_token"),
       },
     })
-    .then((res) => {
-      return res;
+    .then(async ({ data }) => {
+      return JSON.parse(await decryptResponse(data));
     })
     .catch((err) => {
       if (err.response.status === 401) {
