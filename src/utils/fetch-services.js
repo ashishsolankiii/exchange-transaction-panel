@@ -13,11 +13,11 @@ const postData = async (url, body, token = null) => {
       "Content-Type": "application/json; charset=utf-8",
       Accept: "application/json",
     },
-    body: encryptRequest(body),
+    body: await encryptRequest(body),
   });
 
   const result = await response.json();
-  const data = JSON.parse(decryptResponse(result));
+  const data = JSON.parse(await decryptResponse(result));
 
   if ([200, 201].includes(response.status)) {
     return data;
@@ -44,6 +44,7 @@ const getData = async (url) => {
   });
 
   const result2 = await response.json();
+  const decrypted = JSON.parse(await decryptResponse(result2));
 
   if (response.status === 401) {
     localStorage.clear();
@@ -59,12 +60,12 @@ const getData = async (url) => {
     // );
   }
 
-  return result2;
+  return decrypted;
 };
 
 const axiosPostData = async (url, formData) => {
   return axios
-    .post(`${BaseURL}/${url}`, encryptRequest(formData), {
+    .post(`${BaseURL}/${url}`, await encryptRequest(formData), {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: localStorage.getItem("jws_token"),
@@ -89,4 +90,5 @@ const axiosPostData = async (url, formData) => {
       }
     });
 };
+
 export { axiosPostData, getData, postData };
