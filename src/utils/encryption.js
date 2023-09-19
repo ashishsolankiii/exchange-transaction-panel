@@ -42,7 +42,7 @@ const defrag = (arr, defragStep) => {
 
 const handshake = async () => {
   try {
-    const url = import.meta.env.VITE_API_URL.replace("/api/v1", "");
+    const url = process.env.REACT_APP_BASE_URL?.replace("/api/v1", "");
     const response = await fetch(`${url}/handshake`, { method: "GET" });
     const data = await response.json();
     if (!data.success) {
