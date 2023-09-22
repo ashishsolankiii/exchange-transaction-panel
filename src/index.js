@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./components/AuthContext";
 import "./index.scss";
+import { handshake } from "./utils/encryption";
 
 const baseUrl = process.env.PUBLIC_URL;
 
@@ -45,6 +46,11 @@ const Root = () => {
   useEffect(() => {
     //Switcherdata.localStorageBackUp();
     //Switcherdata.HorizontalHoverMenu();
+    const interval = setInterval(async () => await handshake(), 1000 * 60 * 5);
+    handshake();
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   return (
