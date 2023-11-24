@@ -46,10 +46,10 @@ export default function WithdrawGroupForm() {
     onSubmit: async (values) => {
       setLoading(true);
       if (editMode) {
-        await updateWithdrawGroup({ _id: id, userId: userInfo._id, ...values });
+        await updateWithdrawGroup({ _id: id, userId: userInfo._id, parentUserId: userInfo.superUserId, ...values });
         navigate("/withdraw-groups");
       } else {
-        await createWithdrawGroup({ userId: userInfo._id, ...values });
+        await createWithdrawGroup({ userId: userInfo._id, parentUserId: userInfo.superUserId, ...values });
         navigate("/withdraw-groups");
       }
       setLoading(false);

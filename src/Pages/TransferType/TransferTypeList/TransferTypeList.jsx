@@ -13,6 +13,7 @@ import { downloadCSV } from "../../../utils/csvUtils";
 import { Notify } from "../../../utils/notify";
 import { changeStatus, deleteTransferType, getAllTransferType } from "../transferTypeService";
 import TransferType from "../../TransferRequests/list/ui/transfer-type";
+import { userInfo } from "../../../lib/default-values";
 
 export default function TransferTypeList() {
   const Export = ({ onExport }) => (
@@ -178,6 +179,7 @@ export default function TransferTypeList() {
         fromDate: fromDate,
         toDate: toDate,
         status: status,
+        parentUserId: userInfo.superUserId,
       });
       const initialCompetitionStatus = result.records.reduce((acc, competition) => {
         acc[competition._id] = { isActive: competition.isActive, loading: false };
