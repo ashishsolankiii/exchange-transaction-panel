@@ -8,6 +8,7 @@ import SearchInput from "../../../components/Common/FormComponents/SearchInput";
 import { showAlert } from "../../../utils/alertUtils";
 import { deleteWithdrawGroup, getWithdrawGroups } from "../withdrawGroupApi";
 import PageHeader from "./ui/page-header";
+import { userInfo } from "../../../lib/default-values";
 
 export default function WithdrawGroupListing() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -99,7 +100,7 @@ export default function WithdrawGroupListing() {
 
   const fetchData = async () => {
     setLoading(true);
-    const result = await getWithdrawGroups({ page: currentPage, perPage, sortBy, direction, searchQuery });
+    const result = await getWithdrawGroups({ page: currentPage, perPage, sortBy, direction, searchQuery, parentUserId: userInfo.superUserId });
     setData(result.records);
     setTotalRows(result.totalRecords);
     setLoading(false);

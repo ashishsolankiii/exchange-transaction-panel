@@ -9,6 +9,7 @@ import FormSelect from "../../../components/Common/FormComponents/FormSelect"; /
 import { Notify } from "../../../utils/notify";
 import { addTransferType, getTransferTypeDetailByID, updateTransferType } from "../transferTypeService";
 import FormToggleSwitch from "../../../components/Common/FormComponents/FormToggleSwitch";
+import { userInfo } from "../../../lib/default-values";
 
 export default function TransferTypeForm() {
   const navigate = useNavigate();
@@ -148,12 +149,14 @@ export default function TransferTypeForm() {
           response = await updateTransferType({
             _id: id,
             ...values,
+            parentUserId: userInfo.superUserId,
             userId
           });
         } else {
           response = await addTransferType({
             ...values,
-            userId
+            userId,
+            parentUserId: userInfo.superUserId,
           });
         }
         if (response.success) {
