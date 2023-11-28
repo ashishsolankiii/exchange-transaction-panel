@@ -61,6 +61,18 @@ const Sidebar = () => {
           },
         ],
       },
+      {
+        menutitle: "DEPOSIT REQUESTS",
+        Items: [
+          {
+            path: `${process.env.PUBLIC_URL}/deposit-requests`,
+            icon: "inbox",
+            type: "link",
+            active: true,
+            title: "Deposit Requests",
+          },
+        ],
+      },
     ];
 
     return menuItems;

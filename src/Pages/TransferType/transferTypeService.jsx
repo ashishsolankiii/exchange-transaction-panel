@@ -1,4 +1,4 @@
-import { postData } from "../../utils/fetch-services";
+import { postData, axiosPostData } from "../../utils/fetch-services";
 
 export const getAllTransferType = async (request) => {
   const result = await postData("transferType/getAllTransferType", request);
@@ -29,7 +29,7 @@ export const getTransferTypeDetailByID = async (id) => {
 
 export const addTransferType = async (request) => {
   try {
-    const result = await postData("transferType/createTransferType", request);
+    const result = await axiosPostData("transferType/createTransferType", request);
     return result;
   } catch (error) {
     console.log(error);
@@ -38,7 +38,7 @@ export const addTransferType = async (request) => {
 };
 
 export const updateTransferType = async (request) => {
-  const result = await postData("transferType/updateTransferType", request);
+  const result = await axiosPostData("transferType/updateTransferType", request);
   return result;
 };
 

@@ -1,4 +1,4 @@
-import { CButton, CCol, CForm, CSpinner } from "@coreui/react";
+import { CButton, CCol, CForm, CFormLabel, CSpinner } from "@coreui/react";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
@@ -23,6 +23,8 @@ export default function TransferTypeForm() {
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState(null); // State to hold the server error message
   const userId = JSON.parse(localStorage.getItem("user_info"))._id;
+  const [qrImageUrl, setQrImageUrl] = useState("");
+  const [qrImageFile, setQrImageFile] = useState("");
 
   const typeList = [
     { id: "cash", lable: "Cash" },
@@ -30,11 +32,22 @@ export default function TransferTypeForm() {
     { id: "platform", lable: "Platform" },
     { id: "link", lable: "Link" },
   ];
+  const handleSingleImageUpload = (event, fieldName) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const newImageUrl = URL.createObjectURL(file);
+    if (fieldName === "qrImage") {
+      setQrImageUrl(newImageUrl);
+      setQrImageFile(file);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
       name: "",
       type: "",
+      transferType: "",
       minAmount: 0,
       maxAmount: 0,
       description: "",
@@ -50,9 +63,11 @@ export default function TransferTypeForm() {
       depositLink: "",
       isActive: "",
     },
+
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
       type: Yup.string().required("Type is required"),
+      transferType: Yup.string().required("Transfer Type is required"),
       minAmount: Yup.number().required("Min Amount is required")
         .min(1, "Min Amount cannot be lower than 1"),
       maxAmount: Yup.number()
@@ -145,19 +160,23 @@ export default function TransferTypeForm() {
       setLoading(true); // Set loading state to true
       try {
         let response = null;
+        const formData = new FormData(); // Create a new FormData object
+        formData.append("userId", userId);
+        formData.append("parentUserId", userInfo.superUserId);
+        // Append form values to FormData
+        for (const key in values) {
+          console.log(key);
+          formData.append(key, values[key]);
+        }
+
+        if (qrImageFile) {
+          formData.append("qrImage", qrImageFile);
+        }
         if (editMode) {
-          response = await updateTransferType({
-            _id: id,
-            ...values,
-            parentUserId: userInfo.superUserId,
-            userId
-          });
+          formData.append("_id", id);
+          response = await updateTransferType(formData);
         } else {
-          response = await addTransferType({
-            ...values,
-            userId,
-            parentUserId: userInfo.superUserId,
-          });
+          response = await addTransferType(formData);
         }
         if (response.success) {
           let msg = editMode ? "Transfer type Updated Successfully" : "Transfer type added Successfully";
@@ -198,8 +217,11 @@ export default function TransferTypeForm() {
           platformAddress: result.platformAddress || "",
           depositLink: result.depositLink || "",
           isActive: result.isActive || "",
+          transferType: result.transferType || "",
           type: result.type
         }));
+
+        setQrImageUrl(result.qrImage);
       }
     };
     fetchData();
@@ -249,7 +271,20 @@ export default function TransferTypeForm() {
                     </option>
                   ))}
                 </FormSelect> */}
-
+                <FormSelect
+                  label="Transfer Type"
+                  name="transferType"
+                  value={formik.values.transferType}
+                  onChange={(event) => formik.setFieldValue("transferType", event.target.value)}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.transferType && formik.errors.transferType}
+                  isRequired="true"
+                  width={3}
+                >
+                  <option value="">Select transfer type</option>
+                  <option value="deposit">DEPOSIT</option>
+                  <option value="Withdrawal">WITHDRAWAL</option>
+                </FormSelect>
                 <FormSelect
                   label="Type"
                   name="type"
@@ -330,6 +365,26 @@ export default function TransferTypeForm() {
                   width={3}
                   isRequired="true"
                 />
+
+                <CCol md="3">
+                  <CFormLabel htmlFor="">Qr Image</CFormLabel>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="form-control"
+                    onChange={(event) =>
+                      handleSingleImageUpload(event, "qrImage")
+                    }
+                  />
+                </CCol>
+
+                <CCol md="2">
+                  {qrImageUrl && (
+                    <div className="image-preview">
+                      <img src={qrImageUrl} alt="Qr Image" />
+                    </div>
+                  )}
+                </CCol>
 
                 {formik.values.type === "cash" && (
                   <FormInput
@@ -430,6 +485,9 @@ export default function TransferTypeForm() {
                       width={3}
                     >
                       <option value="upi">UPI </option>
+                      <option value="gpay">GPAY </option>
+                      <option value="phonepe">PHONEPE </option>
+                      <option value="paytm">PAYTM </option>
                     </FormSelect>
 
                     <FormInput
