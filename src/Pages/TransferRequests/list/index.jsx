@@ -7,6 +7,7 @@ import { getTransferRequests } from "../transferRequestsApi";
 import PageHeader from "./ui/page-header";
 import TransferRequestStatus from "./ui/transfer-request-status";
 import TransferType from "./ui/transfer-type";
+import { userInfo } from "../../../lib/default-values";
 
 export default function TransferRequestsListing() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -39,13 +40,13 @@ export default function TransferRequestsListing() {
       cell: (row) => <TransferType data={row.transferType} />,
       width: "300px",
     },
-    {
-      name: "WITHDRAW GROUP",
-      selector: (row) => [row.withdrawGroupName],
-      sortable: true,
-      sortField: "withdrawGroupName",
-      cell: (row) => <div className="text-uppercase fw-semibold">{row.withdrawGroup.type}</div>,
-    },
+    // {
+    //   name: "WITHDRAW GROUP",
+    //   selector: (row) => [row.withdrawGroupName],
+    //   sortable: true,
+    //   sortField: "withdrawGroupName",
+    //   cell: (row) => <div className="text-uppercase fw-semibold">{row.withdrawGroup?.type}</div>,
+    // },
     {
       name: "AMOUNT",
       selector: (row) => [row.amount],
@@ -75,7 +76,7 @@ export default function TransferRequestsListing() {
 
   const fetchData = async () => {
     setLoading(true);
-    const result = await getTransferRequests({ page: currentPage, perPage, sortBy, direction, searchQuery });
+    const result = await getTransferRequests({ page: currentPage, perPage, sortBy, direction, searchQuery, parentUserId: userInfo.superUserId, });
     setData(result.records);
     setTotalRows(result.totalRecords);
     setLoading(false);

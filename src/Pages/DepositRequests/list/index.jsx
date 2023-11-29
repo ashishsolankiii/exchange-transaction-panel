@@ -7,6 +7,7 @@ import { getDepositRequests } from "../depositRequestsApi";
 import PageHeader from "./ui/page-header";
 import DepositRequestStatus from "./ui/deposit-request-status";
 import TransferType from "./ui/transfer-type";
+import { userInfo } from "../../../lib/default-values";
 
 export default function DepositRequestsListing() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -82,7 +83,7 @@ export default function DepositRequestsListing() {
 
   const fetchData = async () => {
     setLoading(true);
-    const result = await getDepositRequests({ page: currentPage, perPage, sortBy, direction, searchQuery });
+    const result = await getDepositRequests({ page: currentPage, perPage, sortBy, direction, searchQuery, parentUserId: userInfo.superUserId, });
     setData(result.records);
     setTotalRows(result.totalRecords);
     setLoading(false);
