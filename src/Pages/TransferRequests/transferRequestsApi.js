@@ -27,3 +27,16 @@ export const updateTransferRequest = async (params, message = "Transfer request 
     Notify.error(e.message);
   }
 };
+
+export const updateTransferRequestStatus = async (params, message = "Transfer request status updated successfully.") => {
+  try {
+    const result = await postData(`${apiEndpoint}/updateTransferRequestStatus`, params);
+    if (result.success) {
+      Notify.success(message);
+      return result.data;
+    }
+    throw new Error(result.message || "Error updating deposit request.");
+  } catch (e) {
+    Notify.error(e.message);
+  }
+};
