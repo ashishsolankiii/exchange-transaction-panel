@@ -1,7 +1,7 @@
 import { CSpinner } from "@coreui/react";
 import React, { useState } from "react";
 import FormSelect from "../../../../../components/Common/FormComponents/FormSelect";
-import { updateTransferRequest } from "../../../transferRequestsApi";
+import { updateTransferRequestStatus } from "../../../transferRequestsApi";
 
 function TransferRequestStatus({ row }) {
   const [loading, setLoading] = useState(false);
@@ -13,7 +13,7 @@ function TransferRequestStatus({ row }) {
       return;
     }
     setLoading(true);
-    const updated = await updateTransferRequest({ ...row, status: value }, "Status updated.");
+    const updated = await updateTransferRequestStatus({ ...row, fieldName: 'status', status: value }, "Status updated.");
     setLoading(false);
     if (!updated) {
       return;
