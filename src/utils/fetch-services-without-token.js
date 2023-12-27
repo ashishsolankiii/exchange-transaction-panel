@@ -14,6 +14,7 @@ const postData = async (url, body) => {
       ...encHeaders,
     },
     body: await encryptRequest(body),
+    credentials: "include",
   });
 
   const result = await response.json();
@@ -31,6 +32,7 @@ const getData = async (url) => {
       "Content-Type": "application/json; charset=utf-8",
       ...encHeaders,
     },
+    credentials: "include",
   });
   const result = await response.json();
   const data = await decryptResponse(result);
@@ -46,6 +48,7 @@ const axiosPostData = async (url, formData) => {
         Authorization: localStorage.getItem("jws_token"),
         ...encHeaders,
       },
+      withCredentials: true,
     })
     .then(async ({ data }) => {
       return await decryptResponse(data);
